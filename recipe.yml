@@ -1,0 +1,23 @@
+base: registry.vanillaos.org/vanillaos/desktop:main
+name: Vanilla VSO
+id: vanilla-vso
+labels:
+  maintainer: Vanilla OS Contributors
+args:
+  DEBIAN_FRONTEND: noninteractive
+runs:
+- echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d/01norecommends
+
+modules:
+- name: systemd
+  type: apt
+  source:
+    packages:
+    - systemd
+
+- name: cleanup
+  type: shell
+  commands:
+  - apt autoremove -y
+  - apt clean
+

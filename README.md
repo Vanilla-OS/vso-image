@@ -1,12 +1,11 @@
-# Vanilla OS Nvidia Image
-Containerfile for building a Vanilla OS Desktop+Nvidia image.
+# Vanilla OS VSO Image
+Containerfile for building a Vanilla OS VSO image.
 
-This image is based on top of vanillaos/desktop and offers the default
-Vanilla OS Desktop experience with GNOME and Nvidia drivers.
+This image is based on top of vanillaos/pico and adds the systemd package to
+obtain a full systemd environment for VSO.
 
 ## Build
 
 ```bash
-sh prepare.sh
-podman image build -t vanillaos/nvidia .
+podman image build -t vanillaos/vso .
 ```
