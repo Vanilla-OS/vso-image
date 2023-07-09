@@ -1,4 +1,4 @@
-base: registry.vanillaos.org/vanillaos/desktop:main
+base: registry.vanillaos.org/vanillaos/pico:main
 name: Vanilla VSO
 id: vanilla-vso
 labels:
