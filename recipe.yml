@@ -20,4 +20,3 @@ modules:
   commands:
   - apt autoremove -y
   - apt clean
-
