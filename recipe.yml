@@ -6,18 +6,47 @@ labels:
 args:
   DEBIAN_FRONTEND: noninteractive
 runs:
-- echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d/01norecommends
+  - echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d/01norecommends
 
 modules:
-- name: systemd
-  type: apt
-  source:
-    packages:
-    - systemd
-    - libpam-systemd
+  - name: systemd
+    type: apt
+    source:
+      packages:
+        - systemd
+        - libpam-systemd
+        # pre-install distrobox-init pkgs
+        - apt-utils
+        - bash-completion
+        - bc
+        - curl
+        - dialog
+        - diffutils
+        - findutils
+        - gnupg2
+        - language-pack-en
+        - less
+        - libnss-myhostname
+        - libvte-2.9*-common
+        - libvte-common
+        - locales
+        - lsof
+        - ncurses-base
+        - passwd
+        - pinentry-curses
+        - procps
+        - sudo
+        - time
+        - tzdata
+        - util-linux
+        - wget
+        - libegl1-mesa
+        - libgl1-mesa-glx
+        - libvulkan1
+        - mesa-vulkan-drivers
 
-- name: cleanup
-  type: shell
-  commands:
-  - apt autoremove -y
-  - apt clean
+  - name: cleanup
+    type: shell
+    commands:
+      - apt autoremove -y
+      - apt clean
