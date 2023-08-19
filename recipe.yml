@@ -24,7 +24,6 @@ modules:
         - diffutils
         - findutils
         - gnupg2
-        - language-pack-en
         - less
         - libnss-myhostname
         - libvte-2.9*-common
