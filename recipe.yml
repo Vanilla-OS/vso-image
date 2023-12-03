@@ -44,6 +44,15 @@ modules:
         - libvulkan1
         - mesa-vulkan-drivers
 
+  - name: host-aliases
+    type: shell
+    commands:
+      - ln -s /usr/bin/host-spawn /usr/bin/vso
+      - ln -s /usr/bin/host-spawn /usr/bin/abroot
+      - ln -s /usr/bin/host-spawn /usr/bin/apx
+      - ln -s /usr/bin/host-spawn /usr/bin/ikaros
+      - ln -s /usr/bin/host-spawn /usr/bin/vanilla-sideload
+
   - name: cleanup
     type: shell
     commands:
