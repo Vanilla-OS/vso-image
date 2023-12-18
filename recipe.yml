@@ -54,6 +54,8 @@ modules:
     - mkdir -p /usr/bin
     - cp /sources/vanilla-tools/nrun /usr/bin/nrun
     - chmod +x /usr/bin/nrun
+    - cp /sources/vanilla-tools/cur-gpu /usr/bin/cur-gpu
+    - chmod +x /usr/bin/cur-gpu
 
   - name: host-aliases
     type: shell
