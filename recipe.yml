@@ -44,6 +44,17 @@ modules:
         - libvulkan1
         - mesa-vulkan-drivers
 
+  - name: vanilla-tools
+    type: shell
+    source:
+      type: tar
+      # switch to production build once in production
+      url: https://github.com/Vanilla-OS/vanilla-tools/releases/download/continuous/vanilla-tools.tar.gz
+    commands:
+    - mkdir -p /usr/bin
+    - cp /sources/vanilla-tools/nrun /usr/bin/nrun
+    - chmod +x /usr/bin/nrun
+
   - name: host-aliases
     type: shell
     commands:
