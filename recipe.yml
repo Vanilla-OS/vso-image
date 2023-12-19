@@ -65,6 +65,7 @@ modules:
       - ln -s /usr/bin/host-spawn /usr/bin/apx
       - ln -s /usr/bin/host-spawn /usr/bin/ikaros
       - ln -s /usr/bin/host-spawn /usr/bin/vanilla-sideload
+      - sh /usr/share/apx/distrobox/gen-distrobox-links
 
   - name: cleanup
     type: shell

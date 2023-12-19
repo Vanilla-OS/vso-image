@@ -1,0 +1,7 @@
+#!/bin/sh
+targets="distrobox distrobox-host-exec distrobox-assemble distrobox-init distrobox-create distrobox-list distrobox-enter distrobox-rm distrobox-ephemeral distrobox-stop distrobox-export distrobox-upgrade distrobox-generate-entry"
+for target in $targets; do
+  echo "#!/bin/sh" > /usr/share/apx/distrobox/$target
+  echo "host-spawn /usr/share/apx/distrobox/$target \$@" >> /usr/share/apx/distrobox/$target
+  chmod +x /usr/share/apx/distrobox/$target
+done
