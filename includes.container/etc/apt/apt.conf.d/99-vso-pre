@@ -1,0 +1,2 @@
+DPkg::Pre-Install-Pkgs {"/usr/share/vso/hooks/apt-pre"}
+Dpkg::Tools::Options::/usr/share/vso/hooks/apt-pre::Version "1";

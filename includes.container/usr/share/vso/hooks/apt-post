@@ -1,0 +1,11 @@
+#!/bin/bash
+
+package="$(cat /tmp/vso-transaction)"
+
+if [ -n "$SUDO_USER" ]; then
+  username=$SUDO_USER
+else
+  echo "VSO does not work with root privileges, no programs will be exported. Use 'vso export -a $package' to manually export it."
+fi
+
+su -c "/usr/bin/vso export -a $package" $username
