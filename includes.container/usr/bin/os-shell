@@ -8,5 +8,5 @@ for file in /run/host/usr/share/vso/host-exports/*; do
     fi
 done
 
-target_shell=$(echo $SHELL)
+target_shell=$(getent passwd $USER | cut -d: -f7)
 exec "$target_shell" "$@"
