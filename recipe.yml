@@ -72,3 +72,8 @@ modules:
     commands:
       - apt autoremove -y
       - apt clean
+
+  - name: enable-apt-hooks
+    type: shell
+    commands:
+      - mv /etc/apt/___apt.conf.d/ /etc/apt/apt.conf.d/
