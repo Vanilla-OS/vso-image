@@ -1,4 +1,12 @@
 #!/bin/sh
 
+# this exports new host binaries to VSO since host updates could
+# introduce new utilities which must be allowed to be used by the user
+for file in /run/host/usr/share/vso/host-exports/*; do
+    if [ ! -L "/usr/bin/$(basename $file)" ]; then
+        ln -s "/usr/bin/host-spawn" "/usr/bin/$(basename $file)"
+    fi
+done
+
 target_shell=$(echo $SHELL)
 exec "$target_shell" "$@"
