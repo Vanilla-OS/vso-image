@@ -66,6 +66,7 @@ modules:
       - ln -s /usr/bin/host-spawn /usr/bin/vanilla-sideload
       - sh /usr/share/apx/distrobox/gen-distrobox-links
       - chmod +x /usr/bin/os-shell
+      - chmod +x /usr/bin/abroot
 
   - name: cleanup
     type: shell
