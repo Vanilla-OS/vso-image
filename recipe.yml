@@ -38,12 +38,12 @@ modules:
         - iputils-ping
         - less
         - keyutils
-        - language-pack-en
         - libnss-mdns
         - libnss-myhostname
         - libvte-2.9*-common
         - libvte-common
         - locales
+        - locales-all
         - man-db
         - manpages
         - mtr
