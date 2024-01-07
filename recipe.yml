@@ -15,32 +15,63 @@ modules:
       packages:
         - systemd
         - libpam-systemd
-        # pre-install distrobox-init pkgs
+
+  - name: distrobox-init-pkgs
+    type: apt
+    source:
+      packages:
         - apt-utils
         - bash-completion
         - bc
+        - bzip2
         - curl
         - dialog
         - diffutils
         - findutils
+        - iproute2
+        - gnupg
         - gnupg2
+        - gpgsm
+        - libkrb5-3
+        - libcap2-bin
+        - hostname
+        - iputils-ping
         - less
+        - keyutils
+        - language-pack-en
+        - libnss-mdns
         - libnss-myhostname
         - libvte-2.9*-common
         - libvte-common
         - locales
+        - man-db
+        - manpages
+        - mtr
         - lsof
         - ncurses-base
         - passwd
         - pinentry-curses
+        - openssh-client
         - procps
         - sudo
+        - pigz
         - time
+        - rsync
         - tzdata
         - util-linux
         - wget
+        - unzip
+        - zip
+        - xauth
+        - tree
+        - tcpdump
+        - traceroute
+        - xz-utils
+        - libgl1
         - libegl1-mesa
         - libgl1-mesa-glx
+        - libegl1
+        - libglx-mesa0
         - libvulkan1
         - mesa-vulkan-drivers
 
