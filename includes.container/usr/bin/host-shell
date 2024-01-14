@@ -1,2 +1,11 @@
 #!/bin/bash
-distrobox-host-exec "$@"
+
+host_command="${1:-${SHELL:-/bin/sh}}"
+sudo_command=""
+[ "$(id -ru)" -ne 0 ] && sudo_command="sudo"
+
+XDG_RUNTIME_DIR="/run/host/${XDG_RUNTIME_DIR}"
+DBUS_SESSION_BUS_ADDRESS="unix:path=/run/host/$(echo "${DBUS_SESSION_BUS_ADDRESS}" | cut -d '=' -f2-)"
+
+host-spawn "${host_command}" "${@:2}"
+exit $?
