@@ -1,2 +1,2 @@
 #!/bin/bash
-host-spawn pkexec abroot "$@"
+host-shell pkexec abroot "$@"
