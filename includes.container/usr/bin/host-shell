@@ -7,5 +7,9 @@ sudo_command=""
 XDG_RUNTIME_DIR="/run/host/${XDG_RUNTIME_DIR}"
 DBUS_SESSION_BUS_ADDRESS="unix:path=/run/host/$(echo "${DBUS_SESSION_BUS_ADDRESS}" | cut -d '=' -f2-)"
 
+if [ "$(basename "${0}")" != "host-shell" ]; then
+    host_command="$(basename "${0}")"
+fi
+
 host-spawn "${host_command}" "${@:2}"
 exit $?
