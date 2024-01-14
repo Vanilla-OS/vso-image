@@ -4,7 +4,7 @@
 # introduce new utilities which must be allowed to be used by the user
 for file in /run/host/usr/share/vso/host-exports/*; do
     if [ ! -L "/usr/bin/$(basename $file)" ]; then
-        sudo ln -s "/usr/bin/host-spawn" "/usr/bin/$(basename $file)"
+        sudo ln -s "/usr/bin/host-shell" "/usr/bin/$(basename $file)"
     fi
 done
 
