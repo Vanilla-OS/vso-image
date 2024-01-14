@@ -5,6 +5,10 @@ host_command=""
 XDG_RUNTIME_DIR="/run/host/${XDG_RUNTIME_DIR}"
 DBUS_SESSION_BUS_ADDRESS="unix:path=/run/host/$(echo "${DBUS_SESSION_BUS_ADDRESS}" | cut -d '=' -f2-)"
 
+if [ -z "${XDG_DATA_HOME}" ]; then
+    XDG_DATA_HOME="/home/${USER}/.local/share"
+fi
+
 if [ "$(basename "${0}")" != "host-shell" ]; then
     host_command="$(basename "${0}")"
 else
