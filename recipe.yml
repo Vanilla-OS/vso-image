@@ -95,6 +95,9 @@ modules:
       - ln -s /usr/bin/host-shell /usr/bin/apx
       - ln -s /usr/bin/host-shell /usr/bin/ikaros
       - ln -s /usr/bin/host-shell /usr/bin/vanilla-sideload
+      - ln -s /usr/bin/host-shell /usr/sbin/shutdown
+      - ln -s /usr/bin/host-shell /usr/sbin/reboot
+      - ln -s /usr/bin/host-shell /usr/sbin/poweroff
       - sh /usr/share/apx/distrobox/gen-distrobox-links
       - chmod +x /usr/bin/os-shell
       - chmod +x /usr/bin/host-shell
