@@ -95,16 +95,23 @@ modules:
       - ln -s /usr/bin/host-shell /usr/bin/apx
       - ln -s /usr/bin/host-shell /usr/bin/ikaros
       - ln -s /usr/bin/host-shell /usr/bin/vanilla-sideload
+      - chmod +x /usr/bin/abroot
+      - chmod +x /usr/bin/ikaros
+      - chmod +x /usr/bin/vanilla-sideload
+      
       - rm /usr/sbin/shutdown
       - rm /usr/sbin/reboot
       - rm /usr/sbin/poweroff
       - ln -s /usr/bin/host-shell /usr/sbin/shutdown
       - ln -s /usr/bin/host-shell /usr/sbin/reboot
       - ln -s /usr/bin/host-shell /usr/sbin/poweroff
-      - sh /usr/share/apx/distrobox/gen-distrobox-links
+      - chmod +x /usr/sbin/shutdown
+      - chmod +x /usr/sbin/reboot
+      - chmod +x /usr/sbin/poweroff
+      
       - chmod +x /usr/bin/os-shell
       - chmod +x /usr/bin/host-shell
-      - chmod +x /usr/bin/abroot
+      - sh /usr/share/apx/distrobox/gen-distrobox-links
 
   - name: cleanup
     type: shell
