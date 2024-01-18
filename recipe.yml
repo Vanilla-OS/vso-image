@@ -95,6 +95,9 @@ modules:
       - ln -s /usr/bin/host-shell /usr/bin/apx
       - ln -s /usr/bin/host-shell /usr/bin/ikaros
       - ln -s /usr/bin/host-shell /usr/bin/vanilla-sideload
+      - rm /usr/sbin/shutdown
+      - rm /usr/sbin/reboot
+      - rm /usr/sbin/poweroff
       - ln -s /usr/bin/host-shell /usr/sbin/shutdown
       - ln -s /usr/bin/host-shell /usr/sbin/reboot
       - ln -s /usr/bin/host-shell /usr/sbin/poweroff
