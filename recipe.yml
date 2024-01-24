@@ -122,4 +122,4 @@ modules:
   - name: enable-apt-hooks
     type: shell
     commands:
-      - mv /etc/apt/___apt.conf.d/ /etc/apt/apt.conf.d/
+      - mv /etc/apt/___apt.conf.d/* /etc/apt/apt.conf.d/
