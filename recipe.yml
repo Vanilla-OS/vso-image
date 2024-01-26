@@ -122,4 +122,5 @@ modules:
   - name: enable-apt-hooks
     type: shell
     commands:
+      - chmod +x /usr/share/vso/hooks/*
       - mv /etc/apt/___apt.conf.d/* /etc/apt/apt.conf.d/
