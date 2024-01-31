@@ -91,14 +91,20 @@ modules:
   - name: host-aliases
     type: shell
     commands:
+      # host-shell links
       - ln -s /usr/bin/host-shell /usr/bin/vso
       - ln -s /usr/bin/host-shell /usr/bin/apx
       - ln -s /usr/bin/host-shell /usr/bin/ikaros
       - ln -s /usr/bin/host-shell /usr/bin/vanilla-sideload
-      - chmod +x /usr/bin/abroot
+      - chmod +x /usr/bin/apx
       - chmod +x /usr/bin/ikaros
       - chmod +x /usr/bin/vanilla-sideload
+
+      # custom binaries
+      - chmod +x /usr/bin/abroot
+      - chmod +x /usr/bin/vso
       
+      # core binaries
       - rm /usr/sbin/shutdown
       - rm /usr/sbin/reboot
       - rm /usr/sbin/poweroff
@@ -109,8 +115,11 @@ modules:
       - chmod +x /usr/sbin/reboot
       - chmod +x /usr/sbin/poweroff
       
+      # shell binaries
       - chmod +x /usr/bin/os-shell
       - chmod +x /usr/bin/host-shell
+
+      # distrobox links
       - sh /usr/share/apx/distrobox/gen-distrobox-links
 
   - name: cleanup

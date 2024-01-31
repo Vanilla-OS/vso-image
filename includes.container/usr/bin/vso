@@ -1,0 +1,16 @@
+#!/bin/bash
+
+use_pkexec=0
+
+# if the 2nd argument is sys-upgrade, then we enable pkexec
+if [ "$2" == "sys-upgrade" ]; then
+    use_pkexec=1
+fi
+
+if [ "$use_pkexec" == "1" ]; then
+    # it is a privileged command, so we use pkexec
+    host-shell pkexec /usr/bin/vso "$@"
+else
+    # it does not need to be privileged, so we just run it
+    host-shell /usr/bin/vso "$@"
+fi
