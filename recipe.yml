@@ -9,6 +9,23 @@ runs:
   - echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d/01norecommends
 
 modules:
+  - name: base-files
+    type: dpkg-buildpackage
+    source:
+      type: git
+      url: https://github.com/Vanilla-OS/base-files.git
+      branch: main
+      commit: latest
+      paths:
+      - base-files
+    modules:
+    - name: base-files-deps-install
+      type: apt
+      source:
+        packages:
+        - dpkg-dev
+        - build-essential
+      
   - name: systemd
     type: apt
     source:
