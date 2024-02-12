@@ -25,7 +25,7 @@ modules:
         packages:
         - dpkg-dev
         - build-essential
-      
+
   - name: systemd
     type: apt
     source:
@@ -91,6 +91,7 @@ modules:
         - libglx-mesa0
         - libvulkan1
         - mesa-vulkan-drivers
+        - policykit-1
 
   - name: vanilla-tools
     type: shell
@@ -119,7 +120,7 @@ modules:
       # custom binaries
       - chmod +x /usr/bin/abroot
       - chmod +x /usr/bin/vso
-      
+
       # core binaries
       - rm /usr/sbin/shutdown
       - rm /usr/sbin/reboot
@@ -130,7 +131,7 @@ modules:
       - chmod +x /usr/sbin/shutdown
       - chmod +x /usr/sbin/reboot
       - chmod +x /usr/sbin/poweroff
-      
+
       # shell binaries
       - chmod +x /usr/bin/os-shell
       - chmod +x /usr/bin/host-shell
