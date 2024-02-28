@@ -1,88 +1,21 @@
-#!/usr/bin/python3
-import os
-import subprocess
-from typing import Text, Dict, Union
+#!/bin/bash
+apt-mark showmanual > /tmp/vso-manually-installed-packages-after
+installed_apps="$(grep -v -f /tmp/vso-manually-installed-packages-before /tmp/vso-manually-installed-packages-after)"
 
+export_commands_file="/tmp/vso-transaction-export-commands"
+truncate -s 0 "$export_commands_file"
 
-def read_file(file_path: Text) -> Text:
-    """
-    Read a file and return its contents.
-    """
-    with open(file_path, "r") as f:
-        return f.read().strip()
+# create bash file with export commands
+while IFS= read -r app_to_export
+do
+    if [[ "x$app_to_export" == "x" ]]; then continue; fi
+    echo trying to export $app_to_export
+    echo "host-shell vso export --app $app_to_export" >> "$export_commands_file"
+done <<< "$installed_apps"
 
-
-def get_user_id(username: Text) -> Text:
-    """
-    Get the user id of the user who started the transaction.
-    """
-    return subprocess.check_output(
-        "su -m -c 'id -u {}' {}".format(username, username), shell=True, text=True
-    ).strip()
-
-
-def prepare_environment(username: Text, user_id: Text) -> Dict[Text, Union[Text, int]]:
-    """
-    Prepare the environment distrobox expects to run in.
-    This is needed because the environment gets reset when
-    running apt.
-    """
-    env = os.environ.copy()
-    env["CONTAINER_ID"] = "apx-vso-pico"
-    env["XDG_DATA_DIRS"] = f"/home/{username}/.local/share"
-    env["DBUS_SESSION_BUS_ADDRESS"] = f"unix:path=/run/user/{user_id}/bus"
-    return env
-
-
-def run_vso_export(
-    command: Text, env: Dict[Text, Union[Text, int]]
-) -> subprocess.CompletedProcess[Text]:
-    """
-    Start the vso export command as the user who started the transaction.
-    """
-    try:
-        result = subprocess.run(
-            command, shell=True, check=True, capture_output=True, text=True, env=env
-        )
-        return result
-    except subprocess.CalledProcessError as e:
-        with open(log_file, "a") as log:
-            log.write(e.stderr)
-
-        print("Error occurred while exporting. Check {} for details.".format(log_file))
-        print("Exit code was: {}".format(e.returncode))
-        print(
-            "No programs will be exported. Use 'vso export -a {}' to manually export it.".format(
-                package
-            )
-        )
-        raise
-
-
-if __name__ == "__main__":
-    log_file: Text = "/tmp/vso-export-log.log"
-    package_file: Text = "/tmp/vso-transaction"
-
-    package: Text = read_file(package_file)
-
-    # Apt hook is run as root, but we need to run vso as the user
-    # who started the transaction
-    sudo_user: Text = os.getenv("SUDO_USER")
-    if not sudo_user and os.geteuid() == 0:
-        print(
-            "VSO does not work with root privileges. Use 'vso export -a {}' to manually export it.".format(
-                package
-            )
-        )
-        os.exit(1)
-
-    sudo_user_uid: Text = get_user_id(sudo_user)
-    env: Dict[Text, Union[Text, int]] = prepare_environment(sudo_user, sudo_user_uid)
-
-    command: Text = (
-        'su -m -c "/usr/bin/distrobox-host-exec vso export -a {}" {}'.format(
-            package, sudo_user
-        )
-    )
-
-    result: subprocess.CompletedProcess[Text] = run_vso_export(command, env)
+# run bash file as the user
+if [ -s "$export_commands_file" ]
+then
+    user_environment="XDG_RUNTIME_DIR=/run/user/$SUDO_UID; DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$SUDO_UID/bus;"
+    su -c "su -c \"$user_environment bash $export_commands_file > /dev/null 2> /dev/null \" $SUDO_USER"
+fi

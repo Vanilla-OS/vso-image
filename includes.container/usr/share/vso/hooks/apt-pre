@@ -1,6 +1,2 @@
 #!/usr/bin/bash
-read line
-while read pack
-do
-    echo "$pack" > /tmp/vso-transaction
-done < <( (echo "$line"; cat ) | xargs -d '\n' dpkg-deb --show --showformat='${Package}\n')
+apt-mark showmanual > /tmp/vso-manually-installed-packages-before
