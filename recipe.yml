@@ -125,12 +125,12 @@ modules:
       - rm /usr/sbin/shutdown
       - rm /usr/sbin/reboot
       - rm /usr/sbin/poweroff
-      - ln -s /usr/bin/host-shell /usr/sbin/shutdown
-      - ln -s /usr/bin/host-shell /usr/sbin/reboot
-      - ln -s /usr/bin/host-shell /usr/sbin/poweroff
-      - chmod +x /usr/sbin/shutdown
-      - chmod +x /usr/sbin/reboot
-      - chmod +x /usr/sbin/poweroff
+      - ln -s /usr/bin/host-shell /usr/bin/shutdown
+      - ln -s /usr/bin/host-shell /usr/bin/reboot
+      - ln -s /usr/bin/host-shell /usr/bin/poweroff
+      - chmod +x /usr/bin/shutdown
+      - chmod +x /usr/bin/reboot
+      - chmod +x /usr/bin/poweroff
 
       # shell binaries
       - chmod +x /usr/bin/os-shell
