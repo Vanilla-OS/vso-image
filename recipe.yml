@@ -1,152 +1,155 @@
-base: ghcr.io/vanilla-os/pico:main
 name: Vanilla VSO
 id: vanilla-vso
-labels:
-  maintainer: Vanilla OS Contributors
-args:
-  DEBIAN_FRONTEND: noninteractive
-runs:
-  - echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d/01norecommends
+stages:
+- id: build
+  base: ghcr.io/vanilla-os/pico:main
+  singlelayer: false
+  labels:
+    maintainer: Vanilla OS Contributors
+  args:
+    DEBIAN_FRONTEND: noninteractive
+  runs:
+    - echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d/01norecommends
 
-modules:
-  - name: base-files
-    type: dpkg-buildpackage
-    source:
-      type: git
-      url: https://github.com/Vanilla-OS/base-files.git
-      branch: main
-      commit: latest
-      paths:
-      - base-files
-    modules:
-    - name: base-files-deps-install
+  modules:
+    - name: base-files
+      type: dpkg-buildpackage
+      source:
+        type: git
+        url: https://github.com/Vanilla-OS/base-files.git
+        branch: main
+        commit: latest
+        paths:
+        - base-files
+      modules:
+      - name: base-files-deps-install
+        type: apt
+        source:
+          packages:
+          - dpkg-dev
+          - build-essential
+
+    - name: systemd
       type: apt
       source:
         packages:
-        - dpkg-dev
-        - build-essential
+          - systemd
+          - libpam-systemd
 
-  - name: systemd
-    type: apt
-    source:
-      packages:
-        - systemd
-        - libpam-systemd
+    - name: distrobox-init-pkgs
+      type: apt
+      source:
+        packages:
+          - apt-utils
+          - bash-completion
+          - bc
+          - bzip2
+          - curl
+          - dialog
+          - diffutils
+          - findutils
+          - iproute2
+          - gnupg
+          - gnupg2
+          - gpgsm
+          - libkrb5-3
+          - libcap2-bin
+          - hostname
+          - iputils-ping
+          - less
+          - keyutils
+          - libnss-mdns
+          - libnss-myhostname
+          - libvte-2.9*-common
+          - libvte-common
+          - locales
+          - locales-all
+          - man-db
+          - manpages
+          - mtr
+          - lsof
+          - ncurses-base
+          - passwd
+          - pinentry-curses
+          - openssh-client
+          - procps
+          - sudo
+          - pigz
+          - time
+          - rsync
+          - tzdata
+          - util-linux
+          - wget
+          - unzip
+          - zip
+          - xauth
+          - tree
+          - tcpdump
+          - traceroute
+          - xz-utils
+          - libgl1
+          - libegl1-mesa
+          - libgl1-mesa-glx
+          - libegl1
+          - libglx-mesa0
+          - libvulkan1
+          - mesa-vulkan-drivers
+          - policykit-1
 
-  - name: distrobox-init-pkgs
-    type: apt
-    source:
-      packages:
-        - apt-utils
-        - bash-completion
-        - bc
-        - bzip2
-        - curl
-        - dialog
-        - diffutils
-        - findutils
-        - iproute2
-        - gnupg
-        - gnupg2
-        - gpgsm
-        - libkrb5-3
-        - libcap2-bin
-        - hostname
-        - iputils-ping
-        - less
-        - keyutils
-        - libnss-mdns
-        - libnss-myhostname
-        - libvte-2.9*-common
-        - libvte-common
-        - locales
-        - locales-all
-        - man-db
-        - manpages
-        - mtr
-        - lsof
-        - ncurses-base
-        - passwd
-        - pinentry-curses
-        - openssh-client
-        - procps
-        - sudo
-        - pigz
-        - time
-        - rsync
-        - tzdata
-        - util-linux
-        - wget
-        - unzip
-        - zip
-        - xauth
-        - tree
-        - tcpdump
-        - traceroute
-        - xz-utils
-        - libgl1
-        - libegl1-mesa
-        - libgl1-mesa-glx
-        - libegl1
-        - libglx-mesa0
-        - libvulkan1
-        - mesa-vulkan-drivers
-        - policykit-1
+    - name: vanilla-tools
+      type: shell
+      source:
+        type: tar
+        # switch to production build once in production
+        url: https://github.com/Vanilla-OS/vanilla-tools/releases/download/continuous/vanilla-tools.tar.gz
+      commands:
+      - mkdir -p /usr/bin
+      - cp /sources/vanilla-tools/nrun /usr/bin/nrun
+      - chmod +x /usr/bin/nrun
+      - cp /sources/vanilla-tools/cur-gpu /usr/bin/cur-gpu
+      - chmod +x /usr/bin/cur-gpu
 
-  - name: vanilla-tools
-    type: shell
-    source:
-      type: tar
-      # switch to production build once in production
-      url: https://github.com/Vanilla-OS/vanilla-tools/releases/download/continuous/vanilla-tools.tar.gz
-    commands:
-    - mkdir -p /usr/bin
-    - cp /sources/vanilla-tools/nrun /usr/bin/nrun
-    - chmod +x /usr/bin/nrun
-    - cp /sources/vanilla-tools/cur-gpu /usr/bin/cur-gpu
-    - chmod +x /usr/bin/cur-gpu
+    - name: host-aliases
+      type: shell
+      commands:
+        # host-shell links
+        - ln -s /usr/bin/host-shell /usr/bin/apx
+        - ln -s /usr/bin/host-shell /usr/bin/ikaros
+        - ln -s /usr/bin/host-shell /usr/bin/vanilla-sideload
+        - chmod +x /usr/bin/apx
+        - chmod +x /usr/bin/ikaros
+        - chmod +x /usr/bin/vanilla-sideload
 
-  - name: host-aliases
-    type: shell
-    commands:
-      # host-shell links
-      - ln -s /usr/bin/host-shell /usr/bin/apx
-      - ln -s /usr/bin/host-shell /usr/bin/ikaros
-      - ln -s /usr/bin/host-shell /usr/bin/vanilla-sideload
-      - chmod +x /usr/bin/apx
-      - chmod +x /usr/bin/ikaros
-      - chmod +x /usr/bin/vanilla-sideload
+        # custom binaries
+        - chmod +x /usr/bin/abroot
+        - chmod +x /usr/bin/vso
 
-      # custom binaries
-      - chmod +x /usr/bin/abroot
-      - chmod +x /usr/bin/vso
+        # core binaries
+        - rm /usr/sbin/shutdown
+        - rm /usr/sbin/reboot
+        - rm /usr/sbin/poweroff
+        - ln -s /usr/bin/host-shell /usr/bin/shutdown
+        - ln -s /usr/bin/host-shell /usr/bin/reboot
+        - ln -s /usr/bin/host-shell /usr/bin/poweroff
+        - chmod +x /usr/bin/shutdown
+        - chmod +x /usr/bin/reboot
+        - chmod +x /usr/bin/poweroff
 
-      # core binaries
-      - rm /usr/sbin/shutdown
-      - rm /usr/sbin/reboot
-      - rm /usr/sbin/poweroff
-      - ln -s /usr/bin/host-shell /usr/bin/shutdown
-      - ln -s /usr/bin/host-shell /usr/bin/reboot
-      - ln -s /usr/bin/host-shell /usr/bin/poweroff
-      - chmod +x /usr/bin/shutdown
-      - chmod +x /usr/bin/reboot
-      - chmod +x /usr/bin/poweroff
+        # shell binaries
+        - chmod +x /usr/bin/os-shell
+        - chmod +x /usr/bin/host-shell
 
-      # shell binaries
-      - chmod +x /usr/bin/os-shell
-      - chmod +x /usr/bin/host-shell
+        # distrobox links
+        - sh /usr/share/apx/distrobox/gen-distrobox-links
 
-      # distrobox links
-      - sh /usr/share/apx/distrobox/gen-distrobox-links
+    - name: cleanup
+      type: shell
+      commands:
+        - apt autoremove -y
+        - apt clean
 
-  - name: cleanup
-    type: shell
-    commands:
-      - apt autoremove -y
-      - apt clean
-
-  - name: enable-apt-hooks
-    type: shell
-    commands:
-      - chmod +x /usr/share/vso/hooks/*
-      - mv /etc/apt/___apt.conf.d/* /etc/apt/apt.conf.d/
+    - name: enable-apt-hooks
+      type: shell
+      commands:
+        - chmod +x /usr/share/vso/hooks/*
+        - mv /etc/apt/___apt.conf.d/* /etc/apt/apt.conf.d/
