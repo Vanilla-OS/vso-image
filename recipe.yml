@@ -96,6 +96,12 @@ stages:
           - mesa-vulkan-drivers
           - policykit-1
 
+    - name: miscellaneous
+      type: apt
+      source:
+        packages:
+          - nano
+
     - name: vanilla-tools
       type: shell
       source:
