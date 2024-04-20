@@ -13,7 +13,7 @@ if [ "$(basename "${0}")" != "host-shell" ]; then
     host_command="$(basename "${0}")"
 else
     host_shell=$(grep "^$USER" /run/host/etc/passwd | awk -F: '{print $NF}')
-    host_command="${1:-${$host_shell:-/bin/bash}}"
+    host_command="${1:-${host_shell:-/bin/bash}}"
     shift
 fi
 
