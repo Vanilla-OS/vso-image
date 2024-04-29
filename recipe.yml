@@ -1,5 +1,5 @@
 name: Vanilla VSO
-id: vanilla-vso
+id: vso
 stages:
 - id: build
   base: ghcr.io/vanilla-os/pico:main
