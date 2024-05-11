@@ -24,9 +24,6 @@ jobs:
     - uses: actions/checkout@v4
 
     - uses: vanilla-os/vib-gh-action@v0.7.0
-      with:
-        recipe: 'recipe.yml'
-        plugins: 'Vanilla-OS/vib-fsguard:v1.4'
 
     - uses: actions/upload-artifact@v4
       with:
