@@ -88,7 +88,6 @@ stages:
           - traceroute
           - xz-utils
           - libgl1
-          - libegl1-mesa
           - libegl1
           - libglx-mesa0
           - libvulkan1
