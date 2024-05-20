@@ -152,6 +152,11 @@ stages:
         - apt autoremove -y
         - apt clean
 
+    - name: add-manpath-config
+      type: shell
+      commands: 
+        - mv /etc/man-path.config /etc/manpath.config
+
     - name: enable-apt-hooks
       type: shell
       commands:
