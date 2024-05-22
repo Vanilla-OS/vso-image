@@ -99,6 +99,7 @@ stages:
       source:
         packages:
           - nano
+          - apt-doc
 
     - name: vanilla-tools
       type: shell
