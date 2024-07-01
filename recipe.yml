@@ -109,9 +109,9 @@ stages:
         url: https://github.com/Vanilla-OS/vanilla-tools/releases/download/continuous/vanilla-tools.tar.gz
       commands:
       - mkdir -p /usr/bin
-      - cp /sources/vanilla-tools/nrun /usr/bin/nrun
+      - cp /sources/vanilla-tools/vanilla-tools/nrun /usr/bin/nrun
       - chmod +x /usr/bin/nrun
-      - cp /sources/vanilla-tools/cur-gpu /usr/bin/cur-gpu
+      - cp /sources/vanilla-tools/vanilla-tools/cur-gpu /usr/bin/cur-gpu
       - chmod +x /usr/bin/cur-gpu
 
     - name: host-aliases
