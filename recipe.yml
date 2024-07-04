@@ -55,7 +55,6 @@ stages:
           - libkrb5-3
           - libcap2-bin
           - hostname
-          - iputils-ping
           - less
           - keyutils
           - libnss-mdns
