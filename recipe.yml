@@ -28,6 +28,7 @@ stages:
           packages:
           - dpkg-dev
           - build-essential
+          - debhelper
 
     - name: systemd
       type: apt
