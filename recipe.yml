@@ -94,7 +94,8 @@ stages:
           - libglx-mesa0
           - libvulkan1
           - mesa-vulkan-drivers
-          - policykit-1
+          - polkitd
+          - pkexec
 
     - name: miscellaneous
       type: apt
