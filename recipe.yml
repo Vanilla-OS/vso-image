@@ -139,9 +139,11 @@ stages:
         - ln -s /usr/bin/host-shell /usr/bin/shutdown
         - ln -s /usr/bin/host-shell /usr/bin/reboot
         - ln -s /usr/bin/host-shell /usr/bin/poweroff
+        - ln -s /usr/bin/host-shell /usr/bin/gsettings
         - chmod +x /usr/bin/shutdown
         - chmod +x /usr/bin/reboot
         - chmod +x /usr/bin/poweroff
+        - chmod +x /usr/bin/gsettings
 
         # shell binaries
         - chmod +x /usr/bin/os-shell
