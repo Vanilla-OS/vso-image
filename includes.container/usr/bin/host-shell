@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$EUID" -eq 0 ]; then
+  echo "can't run host-shell as root"
+  exit 55
+fi
+
 host_command=""
 
 XDG_RUNTIME_DIR="/run/host/${XDG_RUNTIME_DIR}"
