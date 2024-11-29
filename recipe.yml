@@ -2,17 +2,19 @@ name: Vanilla VSO
 id: vso
 stages:
 - id: build
-  base: ghcr.io/vanilla-os/pico:main
+  base: debian:sid
   singlelayer: false
   labels:
     maintainer: Vanilla OS Contributors
   args:
     DEBIAN_FRONTEND: noninteractive
-  runs:
-    commands:
-      - echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d/01norecommends
 
   modules:
+    - name: apt-update
+      type: shell
+      commands:
+        - apt-get update
+        
     - name: base-files
       type: dpkg-buildpackage
       source:
