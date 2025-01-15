@@ -154,6 +154,11 @@ stages:
         # distrobox links
         - sh /usr/share/apx/distrobox/gen-distrobox-links
 
+    - name: repo-keys
+      type: shell
+      commands:
+        - curl -fSsL https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/3bf863cc.pub | gpg --dearmor -o /usr/share/keyrings/nvidia-drivers.gpg
+
     - name: cleanup
       type: shell
       commands:
