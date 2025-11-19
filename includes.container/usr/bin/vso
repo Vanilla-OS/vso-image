@@ -3,7 +3,7 @@
 use_pkexec=0
 
 # if the 1st argument is sys-upgrade, then we enable pkexec
-if [ "$1" == "sys-upgrade" ]; then
+if [ "$1" == "sys" ] || [ "$1" == "sys-upgrade" ]; then
     use_pkexec=1
 fi
 
