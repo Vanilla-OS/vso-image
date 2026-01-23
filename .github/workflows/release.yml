@@ -24,7 +24,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: vanilla-os/vib-gh-action@v1.0.2
+      - uses: vanilla-os/vib-gh-action@v1.0.7
 
       - uses: actions/upload-artifact@v6
         with:
