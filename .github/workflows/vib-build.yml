@@ -13,6 +13,15 @@ env:
   BUILDX_NO_DEFAULT_ATTESTATIONS: 1
 
 jobs:
+  verify-image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Verify Base Image Integrity
+      run:
+        gh attestation verify oci://ghcr.io/vanilla-os/pico:main --owner Vanilla-OS
+      env:
+        GH_TOKEN: ${{ github.token }}
 
   build:
     strategy:
@@ -24,6 +33,7 @@ jobs:
           - runner: ubuntu-24.04-arm
             arch: arm64
     runs-on: ${{ matrix.runner }}
+    needs: verify-image
     permissions:
       packages: write # Allow pushing images to GHCR
       attestations: write # To create and write attestations
