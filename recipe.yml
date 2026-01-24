@@ -173,6 +173,12 @@ stages:
       commands: 
         - mv /etc/man-path.config /etc/manpath.config
 
+    - name: switch-apt-sources
+      type: shell
+      commands:
+        - rm -rf /etc/apt/sources.list.d
+        - mv /etc/apt/sources.list.d.new /etc/apt/sources.list.d
+
     - name: enable-apt-hooks
       type: shell
       commands:
