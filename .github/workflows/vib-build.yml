@@ -32,7 +32,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 
-    - uses: vanilla-os/vib-gh-action@v1.0.7
+    - uses: vanilla-os/vib-gh-action@v1.1.0
 
     - uses: actions/upload-artifact@v6
       with:
