@@ -157,9 +157,6 @@ stages:
         - chmod +x /usr/bin/os-shell
         - chmod +x /usr/bin/host-shell
 
-        # distrobox links
-        - sh /usr/share/apx/distrobox/gen-distrobox-links
-
     - name: cleanup
       type: shell
       commands:
